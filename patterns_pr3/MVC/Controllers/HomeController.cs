@@ -23,7 +23,7 @@ namespace patterns_pr3.MVC.Controllers
             
         }
 
-        // GET: HomeController
+      
         public ActionResult Index()
         {
 

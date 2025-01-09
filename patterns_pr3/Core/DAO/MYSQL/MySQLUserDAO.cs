@@ -17,29 +17,29 @@ namespace patterns_pr3.Core.DAO.MYSQL
         {
             try
             {
-                // Create a new connection
+               
                 using (var connection = new MySqlConnection(daoConfig.Url))
                 {
                     connection.Open();
 
-                    // Prepare SQL query to insert the user
+                    
                     string query = "INSERT INTO USERS (login, password, role_id) VALUES (@login, @password, @role_id)";
 
                     using (var cmd = new MySqlCommand(query, connection))
                     {
-                        // Add parameters to avoid SQL injection
+                        
                         cmd.Parameters.AddWithValue("@login", login);
-                        cmd.Parameters.AddWithValue("@password", password); // Make sure to hash the password before storing it
+                        cmd.Parameters.AddWithValue("@password", password); 
                         cmd.Parameters.AddWithValue("@role_id", role);
 
-                        // Execute the query
+                        
                         cmd.ExecuteNonQuery();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., database connection errors, query errors)
+              
                 Console.WriteLine($"An error occurred while creating the user: {login}");
             }
         }
@@ -59,26 +59,26 @@ namespace patterns_pr3.Core.DAO.MYSQL
         {
             try
             {
-                // Create a new connection
+                
                 using (var connection = new MySqlConnection(daoConfig.Url))
                 {
                     connection.Open();
 
-                    // SQL query to fetch the user by login
+                    
                     string query = "SELECT id, login, password, role_id FROM USERS WHERE login = @login";
 
                     using (var cmd = new MySqlCommand(query, connection))
                     {
-                        // Add parameter to avoid SQL injection
+                    
                         cmd.Parameters.AddWithValue("@login", login);
 
-                        // Execute the query and get the result
+                        
                         using (var reader = cmd.ExecuteReader())
                         {
-                            // Check if a user with the given login exists
+                          
                             if (reader.Read())
                             {
-                                // Map the data to a User object
+                                
                                 var user = new User
                                 {
                                     Id = reader.GetInt32("id"),
@@ -90,7 +90,7 @@ namespace patterns_pr3.Core.DAO.MYSQL
                             }
                             else
                             {
-                                // If no user is found, return null or throw an exception
+                               
                                 return null;
                             }
                         }
@@ -99,7 +99,7 @@ namespace patterns_pr3.Core.DAO.MYSQL
             }
             catch (Exception ex)
             {
-                // Handle any exceptions (e.g., database connection errors)
+                
                 Console.WriteLine("An error occurred while retrieving the user: " + ex.Message);
                 return null;
             }
