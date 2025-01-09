@@ -45,7 +45,7 @@ namespace patterns_pr3.MVC.Controllers
                 .SetPageCount(p.PageCount).SetCirculation(p.Circulation).SetPrice(p.Price).SetQuantity(p.Quantity)
                 .SetAuthors(p.Authors).Build();
             _log.Add( caretaker.Save(originator.SaveState()));
-            //HttpContext.Session.SetString("Messages", "");
+            
          
             TempData["Messages"] = _log;
            
