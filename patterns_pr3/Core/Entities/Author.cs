@@ -27,7 +27,7 @@ namespace patterns_pr3.Core.Entities
 
         public override string ToString()
         {
-            return $"Author: {Name} {Surname} (Pseudonym: {Pseudonym})\n" +
+            return $"Id: {Id}, Author: {Name} {Surname} (Pseudonym: {Pseudonym})\n" +
                    $"Email: {Email}\n" +
                    $"Phone Number: {PhoneNumber}\n" +
                    $"Address: {Address}";

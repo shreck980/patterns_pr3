@@ -93,6 +93,24 @@ namespace patterns_pr3.Core.DAO
             return null;
         }
 
+        public IUserDAO? GetUserDAO()
+        {
+            if (config.DatabaseType == "MySQL")
+            {
+                if (data.TryGetValue(typeof(MySQLUserDAO), out var userDAO))
+                {
+                    return (MySQLUserDAO)userDAO;
+                }
+                else
+                {
+                    IUserDAO userDAO1 = new MySQLUserDAO();
+                    data.Add(typeof(MySQLUserDAO), userDAO1);
+                    return userDAO1;
+                }
+            }
+            return null;
+        }
+
         public IOrderDAO? GetOrderDAO()
         {
             if (config.DatabaseType == "MySQL")

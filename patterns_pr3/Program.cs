@@ -1,9 +1,11 @@
 using patterns_pr3.Core.Builder;
 using patterns_pr3.Core.DAO;
+using patterns_pr3.Core.DAO.MYSQL;
 using patterns_pr3.Core.Entities;
 using patterns_pr3.Core.FakeDataGenerators;
 using patterns_pr3.Core.Memento;
 using patterns_pr3.Core.Observer;
+using patterns_pr3.Core.Proxy;
 
 
 namespace patterns_pr3
@@ -18,10 +20,21 @@ namespace patterns_pr3
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<DAOFactory>(); 
+            builder.Services.AddSingleton<IUserDAO,MySQLUserDAO>(); 
             //builder.Services.AddSingleton<PublicationEditingService>(); 
             //builder.Services.AddSingleton<PublicationOriginator>(); 
             builder.Services.AddSingleton<PublicationCaretaker>(); 
+            builder.Services.AddSingleton<AuthenticationService>(); 
+            //builder.Services.AddSingleton<IAuthorDAO,MySQLAuthorDAO>(); 
+            builder.Services.AddSingleton<AuthorDAOProxy>();
+            builder.Services.AddDistributedMemoryCache(); // Use in-memory cache for session
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.Cookie.HttpOnly = true;
+            });
 
+            //builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -37,7 +50,7 @@ namespace patterns_pr3
             app.UseStaticFiles();
            
            
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

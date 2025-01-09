@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using patterns_pr3.Core.Entities
+@{
+}
+
+@{
+    var entity = ViewData["Entity"];
+    var log = ViewData["Log"];
+    var errors = ViewData["Errors"];
+    var userRole = (Role)Context.Session.GetInt32("UserRole");
+}
+ <h1>User page</h1>
+  <h3>User Role - @userRole </h3>
+
+
+<form method="post" action="/Author/AddAuthor">
+    <button type="submit">Add Author</button>
+</form>
+
+@using (Html.BeginForm("UpdateAuthor", "Author", FormMethod.Post, new { style = "display: inline;" }))
+{
+    <input type="text" id="authorId" name="authorId" placeholder="Enter ID" required />
+    <button id="button2" type="submit">Update Author</button>
+}
+
+@using (Html.BeginForm("GetAuthor", "Author", FormMethod.Post, new { style = "display: inline;" }))
+{
+    <input type="text" id="authorId" name="authorId" placeholder="Enter ID" required />
+    <button id="button2" type="submit">Get Author</button>
+}
+
+@if(errors != null){
+    <p>@errors</p>
+}
+
+<div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px;">
+    <label for="result">Result:</label>
+    
+    <textarea id="result" readonly style="width: 100%; height: 100px;">@entity </textarea>
+    <label for="log">Log:</label>
+    <textarea id="log" readonly style="width: 100%; height: 100px;"> @log
+       
+</textarea>
+</div>
+
+ 

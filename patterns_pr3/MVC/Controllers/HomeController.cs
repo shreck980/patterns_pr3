@@ -15,6 +15,7 @@ namespace patterns_pr3.MVC.Controllers
         PublicationCaretaker caretaker { get; set; }
         Publication originator { get; set; }
         private static List<String> _log = new List<String>();
+      
         public HomeController(DAOFactory daoFactory, PublicationCaretaker caretaker)
         {
             this.daoFactory = daoFactory;
