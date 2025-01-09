@@ -33,6 +33,21 @@ namespace patterns_pr3.Core.Entities
                    $"Address: {Address}";
         }
 
+        public override object Clone()
+        {
+          
+            Author clonedAuthor = (Author)this.MemberwiseClone();
+
+          
+            if (this.Address != null)
+            {
+                clonedAuthor.Address = (Address)this.Address.Clone();
+            }
+
+        
+            return clonedAuthor;
+        }
+
     }
 
 

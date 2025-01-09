@@ -36,11 +36,11 @@ namespace patterns_pr3.Core.DAO.MYSQL
 
         private List<IObserver> _observers = new List<IObserver>();
 
-        public MYSQLPublicationDAO()
+        public MYSQLPublicationDAO(DAOFactory factory)
         {
             daoConfig = DAOConfig.GetDAOConfig();
             GetLastID = "SELECT MAX(id) FROM publication";
-            DAOFactory factory = DAOFactory.Instance;
+          
             authorDAO = (MySQLAuthorDAO)factory.GetAuthorDAO();
         }
 

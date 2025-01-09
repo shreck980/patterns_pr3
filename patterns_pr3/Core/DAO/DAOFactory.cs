@@ -9,12 +9,12 @@ namespace patterns_pr3.Core.DAO
 {
     public class DAOFactory
     {
-        private static readonly Lazy<DAOFactory> _instance = new Lazy<DAOFactory>(() => new DAOFactory());
-        public static DAOFactory Instance => _instance.Value;
+        //private static readonly Lazy<DAOFactory> _instance = new Lazy<DAOFactory>(() => new DAOFactory());
+        //public static DAOFactory Instance => _instance.Value;
 
         private readonly DAOConfig config;
         private Dictionary<Type, object> data = new Dictionary<Type, object>();
-        private DAOFactory()
+        public DAOFactory()
         {
             config = DAOConfig.GetDAOConfig();
         }
@@ -29,7 +29,7 @@ namespace patterns_pr3.Core.DAO
                 }
                 else
                 {
-                    MYSQLPublicationDAO publicationDAO = new MYSQLPublicationDAO();
+                    MYSQLPublicationDAO publicationDAO = new MYSQLPublicationDAO(this);
                     data.Add(typeof(MYSQLPublicationDAO), publicationDAO);
                     return publicationDAO;
                 }
@@ -103,7 +103,7 @@ namespace patterns_pr3.Core.DAO
                 }
                 else
                 {
-                    IOrderDAO orderDAO1 = new MySQLOrderDAO();
+                    IOrderDAO orderDAO1 = new MySQLOrderDAO(this);
                     data.Add(typeof(MySQLOrderDAO), orderDAO1);
                     return orderDAO1;
                 }

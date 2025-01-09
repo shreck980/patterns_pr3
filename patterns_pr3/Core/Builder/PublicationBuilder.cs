@@ -36,6 +36,12 @@ namespace patterns_pr3.Core.Builder
             Id = id;
             return this;
         }
+        public PublicationBuilder SetAuthors(List<Author> authors)
+        {
+            if(authors == null || authors.Count == 0) return this;
+            Authors = new List<Author>(authors.Select(author => (Author)author.Clone()));
+            return this;
+        }
         public PublicationBuilder SetTitle(string Title)
         {
             this.Title = Title;

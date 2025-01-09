@@ -2,6 +2,7 @@ using patterns_pr3.Core.Builder;
 using patterns_pr3.Core.DAO;
 using patterns_pr3.Core.Entities;
 using patterns_pr3.Core.FakeDataGenerators;
+using patterns_pr3.Core.Memento;
 using patterns_pr3.Core.Observer;
 
 
@@ -15,6 +16,12 @@ namespace patterns_pr3
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<DAOFactory>(); 
+            //builder.Services.AddSingleton<PublicationEditingService>(); 
+            //builder.Services.AddSingleton<PublicationOriginator>(); 
+            builder.Services.AddSingleton<PublicationCaretaker>(); 
+
 
             var app = builder.Build();
 
@@ -28,10 +35,16 @@ namespace patterns_pr3
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+           
+           
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}");
+
 
             app.MapRazorPages();
 

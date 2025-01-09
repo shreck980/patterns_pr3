@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace patterns_pr3.Core.Entities
 {
-    public abstract class Person
+    public abstract class Person: ICloneable
     {
 
         public long Id { get; set; }
@@ -16,8 +16,9 @@ namespace patterns_pr3.Core.Entities
         public string PhoneNumber { get; set; }
         public Address Address { get; set; }
 
-
-
-
+        public virtual object Clone()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

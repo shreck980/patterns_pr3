@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace patterns_pr3.Core.Entities
 {
-    public class Address
+    public class Address : ICloneable
     {
         public long Id { get; set; }
         public string Country { get; set; }
@@ -27,6 +27,20 @@ namespace patterns_pr3.Core.Entities
             return $"{Street} {House}" +
                    (Apartment.HasValue ? $", Apt {Apartment.Value}" : "") +
                    $", {City}, {Country}";
+        }
+
+        public object Clone()
+        {
+            
+            return new Address
+            {
+                Id = this.Id,
+                Country = this.Country,
+                City = this.City,
+                Street = this.Street,
+                House = this.House,
+                Apartment = this.Apartment
+            };
         }
     }
 }

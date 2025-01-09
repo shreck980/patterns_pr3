@@ -1,4 +1,5 @@
 ﻿using patterns_pr3.Core.Builder;
+using patterns_pr3.Core.Memento;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,10 +29,29 @@ namespace patterns_pr3.Core.Entities
             PageCount = pb.PageCount;
             Circulation = pb.Circulation;
             Price = pb.Price;
-            Authors = pb.Authors;
-            Genre = pb.Genre;
+            Authors = new List<Author>(pb.Authors.Select(author => (Author)author.Clone()));
+             Genre = pb.Genre;
             PrintQuality = pb.PrintQuality;
             Quantity = pb.Quantity;
+        }
+        public Publication()
+        {
+
+           
+        }
+
+        public PublicationMemento SaveState()
+        {
+            return new PublicationMemento(Id,Title, PageCount, Circulation, Price, Quantity,Authors);
+        }
+
+        public void RestoreState(PublicationMemento memento)
+        {
+            Title = memento.Title;
+            PageCount = memento.PageCount;
+            Circulation = memento.Circulation;
+            Price = memento.Price;
+            Quantity = memento.Quantity;
         }
 
         public override string ToString()

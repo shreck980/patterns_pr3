@@ -43,13 +43,13 @@ namespace patterns_pr3.Core.DAO.MYSQL
         private readonly MYSQLPublicationDAO publicationDAO;
 
         private List<IObserver> _observers = new List<IObserver>();
-        public MySQLOrderDAO()
+        public MySQLOrderDAO(DAOFactory factory)
         {
 
             daoConfig = DAOConfig.GetDAOConfig();
             GetLastID = "select max(id) from `order`;";
 
-            DAOFactory factory = DAOFactory.Instance;
+           
             publicationDAO = (MYSQLPublicationDAO)factory.GetPublicationDAO();
 
         }
